@@ -1,9 +1,10 @@
 import express from "express";
-import { login, register, sendLink } from "../controllers/authController.js";
+import { login, register, resetPassword, sendLink } from "../controllers/authController.js";
 const router = express.Router();
 
 router.post("/register" , register);
 router.post("/login" , login);
-router.post("/sendLink" , sendLink);
+router.post("/sendlink" , sendLink);
+router.put("/resetpassword/:id/:token" , resetPassword);
 
-export default router;
+export default router;  

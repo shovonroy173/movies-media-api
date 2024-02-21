@@ -45,12 +45,13 @@ export const login = async (req, res, next) => {
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD,
+    user: "royshovon853@gmail.com",
+    pass: "tvtonidzglyyllgl",
   },
 });
 
 export const sendLink = async (req, res, next) => {
+  console.log(process.env.EMAIL , process.env.PASSWORD);
   try {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -61,7 +62,7 @@ export const sendLink = async (req, res, next) => {
         from: process.env.EMAIL,
         to: req.body.email,
         subject: "Sending link For password reset",
-        text: `THIS LINK IS VALID FOR ONLY 2 MINUTE http://localhost:5173/api/auth/resetPassword/${user._id}/${token}`,
+        text: `PASSWORD RESET LINK http://localhost:5173/api/auth/resetPassword/${user._id}/${token}`,
       };
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
@@ -81,18 +82,21 @@ export const sendLink = async (req, res, next) => {
 };
 
 export const resetPassword = async (req, res, next) => {
+  console.log(req.body , req.params.id);
   try {
     const user = await User.findOne({ _id: req.params.id });
+    console.log(user);
     if (user) {
       const salt = bcrypt.genSaltSync(10);
       const hashedPassword = bcrypt.hashSync(req.body.password, salt);
       const resetPassword = await User.findByIdAndUpdate(
-        req.body.id,
+        req.params.id,
         {
           $set: { password: hashedPassword },
         },
         { new: true }
       );
+      console.log(resetPassword);
       return res.status(200).json(resetPassword);
     } else {
       return res.status(400).json("Not Found!!");
