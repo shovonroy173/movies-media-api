@@ -1,12 +1,15 @@
 import { Schema, model } from "mongoose";
-
+ 
 const movieSchema = Schema({
    name:{
     type:String , required:[true , "Name is required!!"]
    }  , 
-   type:{
-      type:String , required:[true , "Type is required!!"]
+   genre:{
+      type:String , required:[true , "genre is required!!"]
      }  ,
+   category:{
+      type:String , required:[true , "genre is required!!"]
+     }  ,  
    desc:{
     type:String , required:[true , "Description is required!!"]
    } , 
@@ -33,6 +36,6 @@ const movieSchema = Schema({
       type:[String] , default:[]
      } , 
 
-});
+} , {timestamps:true});
 
 export default model("Movie" , movieSchema);

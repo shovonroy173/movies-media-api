@@ -30,7 +30,9 @@ export const login = async (req, res, next) => {
         const token = jwt.sign({ _id: user._id }, process.env.JWT, {
           expiresIn: "1d",
         });
-        return res.cookie("userToken", token).status(200).json(user._doc);
+        return res.cookie("userToken", token ,  { 
+          httpOnly: true, // Cannot be accessed by client-side scripts
+        }).status(200).json(user._doc);
       } else {
         return res.status(403).json("Forbidden");
       }
