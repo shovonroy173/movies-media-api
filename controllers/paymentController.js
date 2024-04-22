@@ -8,7 +8,7 @@ export const payment = async(req , res)=>{
                 currency:"inr" , 
                 product_data:{
                     name:req.body.name , 
-                    user:req.body.userEmail
+                    // user:req.body.userEmail
                 } , 
                 unit_amount:req.body.price*100
             } , 
