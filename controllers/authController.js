@@ -64,7 +64,7 @@ export const sendLink = async (req, res, next) => {
         from: process.env.EMAIL,
         to: req.body.email,
         subject: "Sending link For password reset",
-        text: `PASSWORD RESET LINK http://localhost:5173/api/auth/resetPassword/${user._id}/${token}`,
+        text: `PASSWORD RESET LINK https://movies-media-client.vercel.app/api/auth/resetPassword/${user._id}/${token}`,
       };
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
